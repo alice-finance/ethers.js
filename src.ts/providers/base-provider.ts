@@ -63,8 +63,11 @@ function allowNull(check: CheckFunc, nullValue?: any): CheckFunc {
 }
 
 function allowFalsish(check: CheckFunc, replaceValue: any): CheckFunc {
-    return (function(value) {
+    return (function (value) {
         if (!value) { return replaceValue; }
+        if (typeof (value) === 'string' && value === '0x') {
+            return replaceValue;
+        }
         return check(value);
     });
 }
@@ -157,9 +160,9 @@ function checkBlockTag(blockTag: BlockTag): string {
 const formatTransaction = {
    hash: checkHash,
 
-   blockHash: allowNull(checkHash, null),
-   blockNumber: allowNull(checkNumber, null),
-   transactionIndex: allowNull(checkNumber, null),
+   blockHash: allowFalsish(checkHash, null),
+   blockNumber: allowFalsish(checkNumber, null),
+   transactionIndex: allowFalsish(checkNumber, null),
 
    confirmations: allowNull(checkNumber, null),
 
