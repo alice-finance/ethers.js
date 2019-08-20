@@ -65,6 +65,9 @@ function allowFalsish(check, replaceValue) {
         if (!value) {
             return replaceValue;
         }
+        if (typeof (value) === 'string' && value === '0x') {
+            return replaceValue;
+        }
         return check(value);
     });
 }
@@ -154,9 +157,9 @@ function checkBlockTag(blockTag) {
 }
 var formatTransaction = {
     hash: checkHash,
-    blockHash: allowNull(checkHash, null),
-    blockNumber: allowNull(checkNumber, null),
-    transactionIndex: allowNull(checkNumber, null),
+    blockHash: allowFalsish(checkHash, null),
+    blockNumber: allowFalsish(checkNumber, null),
+    transactionIndex: allowFalsish(checkNumber, null),
     confirmations: allowNull(checkNumber, null),
     from: address_1.getAddress,
     gasPrice: bignumber_1.bigNumberify,
