@@ -1,5 +1,5 @@
 {
-  "name": "ethers",
+  "name": "@alice-finance/ethers",
   "version": "4.0.34",
   "description": "Ethereum wallet library.",
   "main": "./index.js",
