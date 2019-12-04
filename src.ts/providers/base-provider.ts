@@ -669,6 +669,7 @@ export class BaseProvider extends Provider {
                             toBlock: blockNumber,
                             topics: topics
                         }
+
                         if (!filter.address) { delete filter.address; }
                         this.getLogs(filter).then((logs) => {
                             if (logs.length === 0) { return; }
@@ -719,6 +720,7 @@ export class BaseProvider extends Provider {
         setTimeout(() => {
             if (value && !this._poller) {
                 this._poller = setInterval(this._doPoll.bind(this), this.pollingInterval);
+                this._doPoll();
 
             } else if (!value && this._poller) {
                 clearInterval(this._poller);
@@ -1145,7 +1147,7 @@ export class BaseProvider extends Provider {
             // No ENS...
             if (!network.ensAddress) {
                 errors.throwError(
-                    'network does support ENS',
+                    'network does not support ENS',
                     errors.UNSUPPORTED_OPERATION,
                     { operation: 'ENS', network: network.name }
                 );
@@ -1224,6 +1226,8 @@ export class BaseProvider extends Provider {
             return self.call(transaction);
 
         }).then(function(data) {
+            if (data == null) { return null; }
+
             // Strip off the "0x"
             data = data.substring(2);
 

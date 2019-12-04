@@ -1,6 +1,6 @@
 {
   "name": "@alice-finance/ethers",
-  "version": "4.0.34",
+  "version": "4.0.39",
   "description": "Ethereum wallet library.",
   "main": "./index.js",
   "types": "./index.d.ts",
@@ -64,5 +64,6 @@
     "type": "git",
     "url": "git://github.com/ethers-io/ethers.js.git"
   },
+  "ethereum": "donations.ethers.eth",
   "license": "MIT"
 }
